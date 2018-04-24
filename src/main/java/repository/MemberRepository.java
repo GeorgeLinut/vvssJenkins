@@ -14,11 +14,33 @@ import exceptions.MemberAlreadyExistsException;
 public class MemberRepository {
 	private List<Member> members = new ArrayList<Member>();
 
+	public int getCapacity() {
+		return capacity;
+	}
+
+	private int capacity;
+
+	public int getCurrentNumber() {
+		return currentNumber;
+	}
+
+	public void setCurrentNumber(int currentNumber) {
+		this.currentNumber = currentNumber;
+	}
+
+	int currentNumber;
+
 	private String filename;
 
 	public MemberRepository(String fileName) {
 		this.filename = fileName;
 		readFromFile();
+		currentNumber = 0;
+	}
+
+	public MemberRepository(int capacity) {
+		this.capacity = capacity;
+		currentNumber = 0;
 	}
 
 	public void addMember(Member m) throws MemberAlreadyExistsException {
@@ -26,6 +48,7 @@ public class MemberRepository {
 			throw new MemberAlreadyExistsException();
 		} else {
 			members.add(m);
+			currentNumber++;
 		}
 	}
 
